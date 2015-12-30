@@ -1,6 +1,6 @@
 SHELL=/bin/sh
 
-PP_LOCAL_CANDIDATES=./pp_local_candidates.py
+MERGE_LOCAL_CANDIDATES_MI2015=./merge_local_candidates_mi2015.py
 
 inputs = mi2015/tur1/$(1)/local_candidates_25.10.2015.txt mi2015/tur2/$(1)/local_candidates_01.11.2015.txt
 output = out/$(1)/local_candidates.csv
@@ -12,7 +12,7 @@ all: $(outputs)
 
 $(outputs): out/%/local_candidates.csv: $(call inputs,%)
 	mkdir -p out/$*
-	$(PP_LOCAL_CANDIDATES) $+ > $@
+	$(MERGE_LOCAL_CANDIDATES_MI2015) $+ > $@
 
 clean:
 	rm -rf out
