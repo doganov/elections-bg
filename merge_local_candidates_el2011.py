@@ -96,7 +96,12 @@ MunicVariant = Variant(
     lambda rec: (rec.code, rec.party_no))
 
 def detect_variant(filenames):
-    return MrltyVariant # FIXME
+    if all(["_mrlty_" in f for f in filenames]):
+        return MrltyVariant
+    if all(["_munic_" in f for f in filenames]):
+        return MunicVariant
+
+    raise ValueError("Can not deduce variant from filenames: " + str(filenames))
 
 def parse(filename, recordType):
     with open(filename) as f:
@@ -170,7 +175,8 @@ if __name__ == '__main__':
     import sys
 
     if len(sys.argv) != 5:
-        print("Usage: pp_local_candidates.py TUR1_CANDIDATES_FILE TUR1_RESULTS_FILE TUR2_CANDIDATES_FILE TUR2_RESULTS_FILE")
+        print("Usage: pp_local_candidates.py TUR1_CANDIDATES_FILE TUR1_RESULTS_FILE TUR2_CANDIDATES_FILE TUR2_RESULTS_FILE",
+              file=sys.stderr)
         sys.exit(1)
 
     variant = detect_variant(sys.argv[1:])
