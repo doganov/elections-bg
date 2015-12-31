@@ -78,7 +78,8 @@ if __name__ == '__main__':
     import sys
 
     if len(sys.argv) != 3:
-        print("Usage: pp_local_candidates.py TUR1_FILE TUR2_FILE")
+        print("Usage: pp_local_candidates.py TUR1_FILE TUR2_FILE",
+              file=sys.stderr)
         sys.exit(1)
     
     records = merge(*sys.argv[1:])
